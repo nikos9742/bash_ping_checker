@@ -10,12 +10,11 @@ if [[ ! -f $csv_file ]]; then
 fi
 
 # Lire les hôtes et IP depuis le fichier CSV et effectuer les pings
-while IFS=',' read -r host ip; do
+while IFS=',' read -r ip host; do
     # Ignorer les lignes vides ou les en-têtes
     if [[ -z "$host" || -z "$ip" || "$host" == "host" ]]; then
         continue
     fi
-
     # Ping avec un seul paquet (-c 1) et un timeout de 1 seconde (-W 1)
     if ping -c 1 -W 1 "$ip" > /dev/null 2>&1; then
         echo -e "$host ($ip) : \e[32m✔️ Success\e[0m"
